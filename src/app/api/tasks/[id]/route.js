@@ -22,10 +22,23 @@ export async function GET(require, { params }) {
   });
 }
 
-export function DELETE(require, { params }) {
-  return NextResponse.json({
-    message: ` eliminando tarea... ${params.id}`,
-  });
+export async function DELETE(require, { params }) {
+  try {
+    const taskDeleted = await Task.findByIdAndDelete(params.id);
+    if (!taskDeleted) {
+      return NextResponse.json(
+        {
+          message: "Tasknot found",
+        },
+        { status: 400 }
+      );
+    }
+    return NextResponse.json(taskDeleted);
+  } catch (error) {
+    return NextResponse.json(error.message, {
+      status: 400,
+    });
+  }
 }
 
 export async function PUT(require, { params }) {
