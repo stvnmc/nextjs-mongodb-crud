@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export async function GET(require, { params }) {
   try {
     connectDB();
-    const taskFount = await Task.findById(params.is);
+    const taskFount = await Task.findById(params.id);
     if (!taskFount) {
       return NextResponse.json(
         {
