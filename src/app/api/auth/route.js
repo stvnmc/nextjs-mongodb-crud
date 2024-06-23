@@ -12,6 +12,7 @@ const getToken = async () => {
     "stvnmc@gmail.com",
     "123456788"
   );
+  console.log(res);
   const idToken = res._tokenResponse.idToken;
   return idToken;
 };
@@ -75,3 +76,30 @@ export async function GET(request) {
     return NextResponse.json(error);
   }
 }
+
+
+
+
+// async function loginUser(email, password) {
+//   try {
+//     const response = await fetch('https://your-api.com/login', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify({ email, password }),
+//     });
+//     const data = await response.json();
+//     const { accessToken, refreshToken } = data;
+
+//     // Guarda los tokens en localStorage
+//     localStorage.setItem('accessToken', accessToken);
+//     localStorage.setItem('refreshToken', refreshToken);
+
+//     return data;
+//   } catch (error) {
+//     console.error('Error al iniciar sesión:', error);
+//     throw error;
+//   }
+// }
+
