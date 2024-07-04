@@ -1,4 +1,5 @@
-async function Home() {
-  return <div>HOME</div>;
+function Home() {
+  return <div>hola</div>;
 }
+
 export default Home;

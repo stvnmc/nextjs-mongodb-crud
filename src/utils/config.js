@@ -1,14 +1,14 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB5WqDM-Qfz1mmqxudlosb_gxkt0YVIsiQ",
-  authDomain: "apphermanos.firebaseapp.com",
-  projectId: "apphermanos",
-  storageBucket: "apphermanos.appspot.com",
-  messagingSenderId: "304054329525",
-  appId: "1:304054329525:web:c5b517f83f11bec6a11efc",
+  apiKey: "AIzaSyCZCaMBe5EflrgDoODgTDWmGdLn1kQ51FY",
+  authDomain: "betspage-61531.firebaseapp.com",
+  projectId: "betspage-61531",
+  storageBucket: "betspage-61531.appspot.com",
+  messagingSenderId: "933481404079",
+  appId: "1:933481404079:web:38bcd2ce13cc8ef96b265a",
 };
 
 const app = initializeApp(firebaseConfig);
