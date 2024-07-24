@@ -1,5 +1,6 @@
 import connectDB from "@/lib/db";
 import { BetModel } from "@/models/Bet";
+
 import { NextResponse } from "next/server";
 
 export const POST = async (req, res) => {
@@ -17,7 +18,7 @@ export const GET = async () => {
   await connectDB();
   try {
     const result = await BetModel.find({});
-    return NextResponse.json({ data: result }, { status: 200 });
+    return NextResponse.json({ result }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ data: null }, { status: 500 });
   }

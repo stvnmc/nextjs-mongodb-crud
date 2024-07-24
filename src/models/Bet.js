@@ -1,4 +1,4 @@
-import mongoose, { Collection } from "mongoose";
+import mongoose from "mongoose";
 
 const betShema = new mongoose.Schema(
   {
@@ -22,4 +22,4 @@ const betShema = new mongoose.Schema(
 );
 
 export const BetModel =
-  mongoose?.models?.quipoos || mongoose.model("quipoos", betShema);
+  mongoose?.models?.bet || mongoose.model("bet", betShema);
