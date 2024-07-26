@@ -1,8 +1,9 @@
 "use client";
 import { useBet } from "@/context/BetContext";
+
 import React, { useEffect, useState } from "react";
 
-const Page = () => {
+const GetBets = () => {
   const { getBetfireStore } = useBet();
 
   const [bets, setBets] = useState(null);
@@ -26,7 +27,7 @@ const Page = () => {
       {bets ? (
         <div>
           {bets.map((iteam, i) => (
-            <div key={i}  className="bet">
+            <div key={i} className="bet">
               <h1>{iteam.name}</h1>
               <h1>{iteam.date}</h1>
               <h1>{iteam.description}</h1>
@@ -40,4 +41,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default GetBets;
