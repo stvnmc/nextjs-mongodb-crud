@@ -1,3 +1,5 @@
+"use client";
+import Link from "next/link";
 import React from "react";
 
 const Navbar = () => {
@@ -7,6 +9,11 @@ const Navbar = () => {
       <ul>
         <li>name</li>
         <li>config</li>
+        <li>
+          <Link href="/admin">
+            <button>admint</button>
+          </Link>
+        </li>
       </ul>
     </div>
   );

@@ -4,33 +4,28 @@ import { useBet } from "@/context/BetContext";
 import React, { useEffect, useState } from "react";
 
 const GetBets = () => {
-  const { getBetfireStore } = useBet();
-
-  const [bets, setBets] = useState(null);
-
-  const addInfoBets = async () => {
-    const res = await getBetfireStore();
-    setBets(res.result);
-  };
+  const { getBetfireStore, bets, deleteBetFireStore } = useBet();
 
   useEffect(() => {
-    addInfoBets();
+    getBetfireStore();
   }, []);
-
-  useEffect(() => {
-    console.log(bets);
-  }, [bets]);
 
   return (
     <div className="container-bets">
       <h1>bets</h1>
       {bets ? (
         <div>
-          {bets.map((iteam, i) => (
+          {bets.map((item, i) => (
             <div key={i} className="bet">
-              <h1>{iteam.name}</h1>
-              <h1>{iteam.date}</h1>
-              <h1>{iteam.description}</h1>
+              <h1>{item.name}</h1>
+              <h1>{item.date}</h1>
+              <h1>{item.description}</h1>
+              <button onClick={() => deleteBetFireStore(item._id)}>
+                delete
+              </button>
+              <button onClick={() => deleteBetFireStore(item._id)}>
+                update
+              </button>
             </div>
           ))}
         </div>
