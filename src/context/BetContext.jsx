@@ -83,6 +83,7 @@ export const BetProvider = ({ children }) => {
       console.error("Error deleting data:", error);
     }
   };
+  
   const deleteBetFireStore = async (id) => {
     try {
       const response = await fetch("http://localhost:3000/api/bets", {
