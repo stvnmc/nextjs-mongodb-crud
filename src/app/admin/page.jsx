@@ -1,29 +1,18 @@
 "use client";
+import CreateBets from "@/components/bets/CreateBets";
 import GetBets from "@/components/bets/GetBets";
+import CreateLeagues from "@/components/leagues/CreateLeagues";
 import { useBet } from "@/context/BetContext";
 import Navbar from "@/layout/Navbar";
 import React, { useState } from "react";
 
 const Page = () => {
-  //Context
-  const { addBetFireStore } = useBet();
-
   // UseState
   const [openBetsOFutbol, setOpenBetsOFutbol] = useState("");
 
   // Funtion
   const chanceOpenBF = (value) => {
     setOpenBetsOFutbol(value);
-  };
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-
-    await addBetFireStore(
-      e.target.name.value,
-      e.target.description.value,
-      e.target.date.value
-    );
   };
 
   return (
@@ -45,32 +34,14 @@ const Page = () => {
             futbol
           </button>
         </div>
-        <div>
+        <div className="flex justify-center mt-[71px]">
           {openBetsOFutbol === "bet" ? (
             <div>
-              <div>
-                <h1>create dets</h1>
-                <form onSubmit={onSubmit}>
-                  <label htmlFor="name">Name</label>
-                  <input id="name" placeholder="name" type="texto" />
-
-                  <label htmlFor="description">Description</label>
-                  <input
-                    id="description"
-                    placeholder="Description"
-                    type="texto"
-                  />
-
-                  <label htmlFor="date">Name</label>
-                  <input id="date" type="date" />
-
-                  <button type="submit">Submit</button>
-                </form>
-              </div>
+              <CreateBets />
               <GetBets />
             </div>
           ) : (
-            <div>futbol</div>
+            <CreateLeagues />
           )}
         </div>
       </main>
