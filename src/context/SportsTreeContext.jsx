@@ -36,7 +36,7 @@ export const SportsTreeProvider = ({ children }) => {
 
       const data = await response.json();
 
-      setBets(data.result);
+      setLeagues(data.result);
 
       return;
     } catch (error) {
@@ -44,14 +44,14 @@ export const SportsTreeProvider = ({ children }) => {
     }
   };
 
-  const addBetFireStore = async (name, description, date) => {
+  const addLeaguesFireStore = async (name, location, teams) => {
     try {
       const response = await fetch("http://localhost:3000/api/leagues", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, description, date }),
+        body: JSON.stringify({ name, location, teams }),
       });
 
       if (!response.ok) {
@@ -59,7 +59,8 @@ export const SportsTreeProvider = ({ children }) => {
       }
 
       const data = await response.json();
-      await getLeaguesfireStore();
+      // await getLeaguesfireStore();
+      console.log(data);
       return data;
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -71,9 +72,10 @@ export const SportsTreeProvider = ({ children }) => {
   //jugadores
 
   return (
-    <SportsTreeContext.Provider value={{}}>
+    <SportsTreeContext.Provider
+      value={{ getLeaguesfireStore, addLeaguesFireStore }}
+    >
       {children}
     </SportsTreeContext.Provider>
   );
 };
-f;

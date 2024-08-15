@@ -34,7 +34,7 @@ const Page = () => {
             futbol
           </button>
         </div>
-        <div className="flex justify-center mt-[71px]">
+        <div className="flex justify-center my-[63px]">
           {openBetsOFutbol === "bet" ? (
             <div>
               <CreateBets />

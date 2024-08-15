@@ -1,6 +1,7 @@
 import { BetProvider } from "@/context/BetContext";
 import "./globals.css";
 import { Inter } from "next/font/google";
+import { SportsTreeProvider } from "@/context/SportsTreeContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,9 +13,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <BetProvider>
-      <html lang="en">
-        <body className={inter.className}>{children}</body>
-      </html>
+      <SportsTreeProvider>
+        <html lang="en">
+          <body className={inter.className}>{children}</body>
+        </html>
+      </SportsTreeProvider>
     </BetProvider>
   );
 }
