@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 export const SportsTreeContext = createContext();
 
@@ -18,6 +18,10 @@ export const useSportsTree = () => {
 export const SportsTreeProvider = ({ children }) => {
   // useState
   const [leagues, setLeagues] = useState(null);
+
+  useEffect(() => {
+    console.log(leagues);
+  }, [leagues]);
 
   // Leagues
 
@@ -59,8 +63,7 @@ export const SportsTreeProvider = ({ children }) => {
       }
 
       const data = await response.json();
-      // await getLeaguesfireStore();
-      console.log(data);
+      await getLeaguesfireStore();
       return data;
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -73,7 +76,7 @@ export const SportsTreeProvider = ({ children }) => {
 
   return (
     <SportsTreeContext.Provider
-      value={{ getLeaguesfireStore, addLeaguesFireStore }}
+      value={{ getLeaguesfireStore, addLeaguesFireStore, leagues }}
     >
       {children}
     </SportsTreeContext.Provider>
