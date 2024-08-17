@@ -49,7 +49,7 @@ const CreateLeagues = () => {
 
   return (
     <div className="flex flex-col items-center rounded-[8px]">
-      <h1 className="text-[2.5em]">create dets</h1>
+      <h1 className="text-[2.5em]">create Leagues</h1>
       <div className="flex flex-col w-[80vw] min-w-[465px]">
         <div className="flex">
           <div>
