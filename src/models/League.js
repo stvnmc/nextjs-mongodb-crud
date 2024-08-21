@@ -14,6 +14,10 @@ const leagueShema = new mongoose.Schema(
       type: String,
       required: [true, "Please complete the field."],
     },
+    image: {
+      data: Buffer,
+      contentType: String,
+    },
   },
   {
     timestamps: true,

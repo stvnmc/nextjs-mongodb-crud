@@ -18,6 +18,7 @@ export const useSportsTree = () => {
 export const SportsTreeProvider = ({ children }) => {
   // useState
   const [leagues, setLeagues] = useState(null);
+  const [team, setTeam] = useState(null);
 
   useEffect(() => {
     console.log(leagues);
@@ -48,14 +49,21 @@ export const SportsTreeProvider = ({ children }) => {
     }
   };
 
-  const addLeaguesFireStore = async (name, location, teams) => {
+  const addLeaguesFireStore = async (name, location, teams, image) => {
+    const leagueData = {
+      name: name,
+      location: location,
+      teams: teams,
+      image: image,
+    };
+
     try {
       const response = await fetch("http://localhost:3000/api/leagues", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, location, teams }),
+        body: JSON.stringify(leagueData),
       });
 
       if (!response.ok) {
@@ -70,13 +78,41 @@ export const SportsTreeProvider = ({ children }) => {
     }
   };
 
-  //equipos
+  //teams
+  const getTeamFireStore = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/leagues/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      setTeam(data.result);
+
+      return;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   //jugadores
 
   return (
     <SportsTreeContext.Provider
-      value={{ getLeaguesfireStore, addLeaguesFireStore, leagues }}
+      value={{
+        getLeaguesfireStore,
+        addLeaguesFireStore,
+        getTeamFireStore,
+        leagues,
+        team,
+      }}
     >
       {children}
     </SportsTreeContext.Provider>

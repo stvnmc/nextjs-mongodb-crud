@@ -27,6 +27,17 @@ const GetLeagues = () => {
                     ? item.teams.map((teams, i) => <p key={i}>{teams}</p>)
                     : null}
                 </div>
+                <div>
+                  {item.image && item.image.data && (
+                    <img
+                      className="w-[150px] h-[150px] object-cover"
+                      src={`data:${item.image.contentType};base64,${Buffer.from(
+                        item.image.data.data
+                      ).toString("base64")}`}
+                      alt={item.name}
+                    />
+                  )}
+                </div>
               </div>
             ))
           : null}

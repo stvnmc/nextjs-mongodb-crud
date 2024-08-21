@@ -1,7 +1,7 @@
 "use client";
 
 import { useSportsTree } from "@/context/SportsTreeContext";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TiDeleteOutline } from "react-icons/ti";
 
 const CreateLeagues = () => {
@@ -13,6 +13,8 @@ const CreateLeagues = () => {
   const [teamInput, setTeamInput] = useState("");
   const [nameInput, setNameInput] = useState("");
   const [locationInput, setLocationInput] = useState("");
+  const [imageInput, setImageInput] = useState(null);
+  const [imageInputShow, setImageInputShow] = useState(null);
 
   // handleChance
   const handleInputChange = (e) => {
@@ -27,6 +29,22 @@ const CreateLeagues = () => {
     setLocationInput(e.target.value);
   };
 
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    setImageInputShow(file);
+
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setImageInput({
+        data: Array.from(new Uint8Array(reader.result)),
+        contentType: file.type,
+      });
+    };
+
+    reader.readAsArrayBuffer(file);
+  };
+
   // function
 
   const onSubmitAddTeams = async () => {
@@ -38,7 +56,7 @@ const CreateLeagues = () => {
   };
 
   const onSubmit = async () => {
-    addLeaguesFireStore(nameInput, locationInput, teams);
+    addLeaguesFireStore(nameInput, locationInput, teams, imageInput);
   };
 
   const deletedTeam = (indexToDelete) => {
@@ -46,6 +64,10 @@ const CreateLeagues = () => {
       prevTeams.filter((_, index) => index !== indexToDelete)
     );
   };
+
+  useEffect(() => {
+    console.log(imageInput);
+  }, [imageInput]);
 
   return (
     <div className="flex flex-col items-center rounded-[8px]">
@@ -78,6 +100,12 @@ const CreateLeagues = () => {
                 className="bg-[#72706d] text-white w-[249px] h-[35px] text-[1.4em] rounded-md p-2 focus:border-[rgb(115,137,156)] focus:ring-2 focus:ring-[rgb(115,137,156)]
          focus:outline-none transition-all duration-300"
               />
+            </div>
+            <div>
+              <input type="file" onChange={handleImageChange} />
+              {imageInputShow ? (
+                <img src={URL.createObjectURL(imageInputShow)} alt="" />
+              ) : null}
             </div>
           </div>
           <div className="m-[13px] mx-[40px]">

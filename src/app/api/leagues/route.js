@@ -16,8 +16,18 @@ export const POST = async (req, res) => {
   await connectDB();
   try {
     const body = await req.json();
-    const newStudent = await LeagueModel.create(body);
-    return NextResponse.json({ data: newStudent }, { status: 200 });
+
+    const newLeague = await LeagueModel.create({
+      name: body.name,
+      location: body.location,
+      teams: body.teams,
+      image: {
+        data: Buffer.from(body.image.data),
+        contentType: body.image.contentType,
+      },
+    });
+
+    return NextResponse.json({ data: newLeague }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ data: error }, { status: 500 });
   }
