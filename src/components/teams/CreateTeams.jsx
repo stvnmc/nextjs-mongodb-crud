@@ -11,9 +11,10 @@ const CreateTeams = () => {
   const {
     getLeaguesfireStore,
     leagues,
-    addLeaguesFireStore,
     getTeamFireStore,
     team,
+    deleteTeam,
+    addTeam,
   } = useSportsTree();
 
   //UseState
@@ -39,7 +40,9 @@ const CreateTeams = () => {
       {chancePage === "leagues" && (
         <GetLeaguesTeam value={{ leagues, showTeams }} />
       )}
-      {chancePage === "team" && <GetTeams value={{ team }} />}
+      {chancePage === "team" && (
+        <GetTeams value={{ team, deleteTeam, addTeam }} />
+      )}
     </div>
   );
 };

@@ -102,6 +102,55 @@ export const SportsTreeProvider = ({ children }) => {
     }
   };
 
+  const deleteTeam = async (id, nameTeam) => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/leagues/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(nameTeam),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      if (!data.result.acknowledged) return;
+
+      getTeamFireStore(id);
+      return;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const addTeam = async (id, nameTeam) => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/leagues/${id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(nameTeam),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const res = await response.json();
+
+      await getTeamFireStore(id);
+
+      return res;
+      
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
   //jugadores
 
   return (
@@ -112,6 +161,8 @@ export const SportsTreeProvider = ({ children }) => {
         getTeamFireStore,
         leagues,
         team,
+        deleteTeam,
+        addTeam,
       }}
     >
       {children}
