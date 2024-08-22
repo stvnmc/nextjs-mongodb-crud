@@ -1,7 +1,6 @@
 import React from "react";
 
 const GetLeaguesTeam = ({ value }) => {
-    
   const { leagues, showTeams } = value;
 
   return (

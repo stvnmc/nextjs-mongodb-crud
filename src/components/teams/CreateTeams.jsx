@@ -1,7 +1,11 @@
 "use client";
 import { useSportsTree } from "@/context/SportsTreeContext";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import GetLeaguesTeam from "./GetLeaguesTeam";
+import GetTeams from "./GetTeams";
+
+// icons
+import { IoArrowBack } from "react-icons/io5";
 
 const CreateTeams = () => {
   const {
@@ -12,23 +16,30 @@ const CreateTeams = () => {
     team,
   } = useSportsTree();
 
+  //UseState
+
+  const [chancePage, setChancePage] = useState("leagues");
+
   // UseEffect
   useEffect(() => {
     getLeaguesfireStore();
   }, []);
 
-  useEffect(() => {
-    console.log(team);
-  }, [team]);
-
   // function
-  const showTeams = (id) => {
-    getTeamFireStore(id);
+  const showTeams = async (id) => {
+    await getTeamFireStore(id);
+    setChancePage("team");
   };
 
   return (
     <div>
-      <GetLeaguesTeam value={{ leagues, showTeams }} />
+      {chancePage === "team" && (
+        <IoArrowBack onClick={() => setChancePage("leagues")} />
+      )}
+      {chancePage === "leagues" && (
+        <GetLeaguesTeam value={{ leagues, showTeams }} />
+      )}
+      {chancePage === "team" && <GetTeams value={{ team }} />}
     </div>
   );
 };
