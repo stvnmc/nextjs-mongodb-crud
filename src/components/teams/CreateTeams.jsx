@@ -6,20 +6,23 @@ import GetTeams from "./GetTeams";
 
 // icons
 import { IoArrowBack } from "react-icons/io5";
+import ShowTeam from "./ShowTeam";
 
 const CreateTeams = () => {
   const {
     getLeaguesfireStore,
     leagues,
-    getTeamFireStore,
-    team,
+    getLeagueTeam,
+    league,
     deleteTeam,
-    addTeam,
+    addLeagueTeam,
+    createTeam,
   } = useSportsTree();
 
   //UseState
 
-  const [chancePage, setChancePage] = useState("leagues");
+  const [statePage, setStatePage] = useState("leagues");
+  const [teamShow, setTeamShow] = useState({ nameTeam: "", league: "" });
 
   // UseEffect
   useEffect(() => {
@@ -28,20 +31,33 @@ const CreateTeams = () => {
 
   // function
   const showTeams = async (id) => {
-    await getTeamFireStore(id);
-    setChancePage("team");
+    await getLeagueTeam(id);
+    setStatePage("team");
+  };
+
+  const showTeam = (nameTeam, league) => {
+    setTeamShow({ nameTeam, league });
+    setStatePage("showTeam");
+  };
+
+  const chancePage = () => {
+    if (statePage === "team") setStatePage("leagues");
+    if (statePage === "showTeam") setStatePage("team");
   };
 
   return (
     <div>
-      {chancePage === "team" && (
-        <IoArrowBack onClick={() => setChancePage("leagues")} />
+      {(statePage === "team" || statePage === "showTeam") && (
+        <IoArrowBack onClick={chancePage} />
       )}
-      {chancePage === "leagues" && (
+      {statePage === "leagues" && (
         <GetLeaguesTeam value={{ leagues, showTeams }} />
       )}
-      {chancePage === "team" && (
-        <GetTeams value={{ team, deleteTeam, addTeam }} />
+      {statePage === "team" && (
+        <GetTeams value={{ league, deleteTeam, addLeagueTeam, showTeam }} />
+      )}
+      {statePage === "showTeam" && (
+        <ShowTeam value={{ teamShow, createTeam }} />
       )}
     </div>
   );

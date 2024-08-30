@@ -11,8 +11,7 @@ const GetBets = () => {
   }, []);
 
   return (
-    <div className="container-bets">
-      <h1>bets</h1>
+    <div>
       {bets ? (
         <div>
           {bets.map((item, i) => (

@@ -20,17 +20,3 @@ body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-end-rgb));
 }
-
-main {
-}
-
-/* bets */
-
-.container-bets {
-}
-
-.bet {
-  background-color: rgb(99, 82, 61);
-  width: 400px;
-  margin: 20px;
-}

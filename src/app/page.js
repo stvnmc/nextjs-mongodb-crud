@@ -16,7 +16,7 @@ export default function Home() {
     <>
       <Navbar />
       <div className="h-screen flex items-center flex-col mt-4">
-        <div>
+        <div className="w-full h-[55px] flex justify-center">
           <button
             className="mt-4 mb-4 ml-[49px] mr-[49px]"
             onClick={() => chanceStateShow("home")}

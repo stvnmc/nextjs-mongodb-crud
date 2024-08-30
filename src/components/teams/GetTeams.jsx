@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 
 const GetTeams = ({ value }) => {
-  const { team, deleteTeam, addTeam } = value;
+  const { league, deleteTeam, addLeagueTeam, showTeam } = value;
   const [showInputText, setShowInputText] = useState(false);
   const [inputText, setInputText] = useState("");
   const [error, setError] = useState("");
@@ -11,7 +11,7 @@ const GetTeams = ({ value }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const res = await addTeam(team._id, inputText);
+    const res = await addLeagueTeam(league._id, inputText);
     if (res.result === "exists") {
       setError("este aquipo ya existe");
       return;
@@ -38,17 +38,17 @@ const GetTeams = ({ value }) => {
 
   return (
     <div>
-      {team ? (
+      {league ? (
         <div>
-          <h1>{team.name}</h1>
+          <h1>{league.name}</h1>
           <button onClick={() => setShowInputText(true)}>agragar</button>
           {error ? <h1>{error}</h1> : null}
           <img
             className="w-[150px] h-[150px] object-cover"
-            src={`data:${team.image.contentType};base64,${Buffer.from(
-              team.image.data.data
+            src={`data:${league.image.contentType};base64,${Buffer.from(
+              league.image.data.data
             ).toString("base64")}`}
-            alt={team.name}
+            alt={league.name}
           />
           <div>
             {showInputText ? (
@@ -56,8 +56,8 @@ const GetTeams = ({ value }) => {
                 <form onSubmit={onSubmit}>
                   <input
                     type="text"
-                    id="team"
-                    placeholder="team"
+                    id="league"
+                    placeholder="league"
                     onChange={inputChance}
                     value={inputText}
                   />
@@ -67,10 +67,10 @@ const GetTeams = ({ value }) => {
             ) : null}
           </div>
           <div>
-            {team.teams.map((iteam, i) => (
+            {league.teams.map((iteam, i) => (
               <div key={i} className="flex">
-                <h1 key={i}>{iteam}</h1>
-                <button onClick={() => deleteTeam(team._id, iteam)}>
+                <h1 onClick={() => showTeam(iteam, league.name)}>{iteam}</h1>
+                <button onClick={() => deleteTeam(league._id, iteam)}>
                   delete
                 </button>
               </div>

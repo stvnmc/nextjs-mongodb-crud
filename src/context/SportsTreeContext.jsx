@@ -18,7 +18,7 @@ export const useSportsTree = () => {
 export const SportsTreeProvider = ({ children }) => {
   // useState
   const [leagues, setLeagues] = useState(null);
-  const [team, setTeam] = useState(null);
+  const [league, setLeague] = useState(null);
 
   useEffect(() => {
     console.log(leagues);
@@ -78,8 +78,31 @@ export const SportsTreeProvider = ({ children }) => {
     }
   };
 
-  //teams
-  const getTeamFireStore = async (id) => {
+  const addLeagueTeam = async (id, nameTeam) => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/leagues/${id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(nameTeam),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const res = await response.json();
+
+      await getLeagueTeam(id);
+
+      return res;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const getLeagueTeam = async (id) => {
     try {
       const response = await fetch(`http://localhost:3000/api/leagues/${id}`, {
         method: "GET",
@@ -94,13 +117,15 @@ export const SportsTreeProvider = ({ children }) => {
 
       const data = await response.json();
 
-      setTeam(data.result);
+      setLeague(data.result);
 
       return;
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
+
+  //teams
 
   const deleteTeam = async (id, nameTeam) => {
     try {
@@ -119,21 +144,29 @@ export const SportsTreeProvider = ({ children }) => {
       const data = await response.json();
       if (!data.result.acknowledged) return;
 
-      getTeamFireStore(id);
+      getLeagueTeam(id);
       return;
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
-  const addTeam = async (id, nameTeam) => {
+  const createTeam = async (name, league, players, image) => {
+    
+    const teamData = {
+      name: name,
+      league: league,
+      players: players,
+      image: image,
+    };
+
     try {
-      const response = await fetch(`http://localhost:3000/api/leagues/${id}`, {
+      const response = await fetch(`http://localhost:3000/api/team/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(nameTeam),
+        body: JSON.stringify(teamData),
       });
 
       if (!response.ok) {
@@ -142,10 +175,9 @@ export const SportsTreeProvider = ({ children }) => {
 
       const res = await response.json();
 
-      await getTeamFireStore(id);
+      console.log(res);
 
       return res;
-      
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -158,11 +190,12 @@ export const SportsTreeProvider = ({ children }) => {
       value={{
         getLeaguesfireStore,
         addLeaguesFireStore,
-        getTeamFireStore,
+        getLeagueTeam,
         leagues,
-        team,
+        league,
         deleteTeam,
-        addTeam,
+        addLeagueTeam,
+        createTeam,
       }}
     >
       {children}
