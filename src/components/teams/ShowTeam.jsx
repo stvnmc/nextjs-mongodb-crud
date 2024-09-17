@@ -87,10 +87,11 @@ const ShowTeam = ({ value }) => {
           <div>
             <h1>{teamShow.nameTeam}</h1>
             <h2>{teamShow.league}</h2>
+            <h1> playeres</h1>
           </div>
         )}
       </div>
-      <div>
+      {/* <div>
         <div>
           <input type="file" onChange={handleImageChange} />
           {imageInputShow ? (
@@ -143,7 +144,7 @@ const ShowTeam = ({ value }) => {
           </div>
           <button onClick={onSubmit}>fishis</button>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

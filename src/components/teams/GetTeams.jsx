@@ -15,7 +15,7 @@ const GetTeams = ({ value }) => {
     if (res.result === "exists") {
       setError("este aquipo ya existe");
       return;
-    }
+    } 
 
     setInputText("");
   };
