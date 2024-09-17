@@ -17,8 +17,10 @@ export const POST = async (req, res) => {
       },
     });
 
-    return NextResponse.json({ data: newTeam }, { status: 200 });
+    console.log(newTeam);
+    
+    return NextResponse.json({ data: true }, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ data: error }, { status: 500 });
+    return NextResponse.json({ data: false }, { status: 500 });
   }
 };

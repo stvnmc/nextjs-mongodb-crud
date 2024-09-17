@@ -14,9 +14,11 @@ const CreateTeams = () => {
     leagues,
     getLeagueTeam,
     league,
+    team,
     deleteTeam,
     addLeagueTeam,
     createTeam,
+    getTeam,
   } = useSportsTree();
 
   //UseState
@@ -57,7 +59,7 @@ const CreateTeams = () => {
         <GetTeams value={{ league, deleteTeam, addLeagueTeam, showTeam }} />
       )}
       {statePage === "showTeam" && (
-        <ShowTeam value={{ teamShow, createTeam }} />
+        <ShowTeam value={{ teamShow, createTeam, getTeam, team }} />
       )}
     </div>
   );

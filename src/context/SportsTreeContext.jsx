@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 
 export const SportsTreeContext = createContext();
 
@@ -19,10 +19,7 @@ export const SportsTreeProvider = ({ children }) => {
   // useState
   const [leagues, setLeagues] = useState(null);
   const [league, setLeague] = useState(null);
-
-  useEffect(() => {
-    console.log(leagues);
-  }, [leagues]);
+  const [team, setTeam] = useState(null);
 
   // Leagues
 
@@ -152,7 +149,6 @@ export const SportsTreeProvider = ({ children }) => {
   };
 
   const createTeam = async (name, league, players, image) => {
-    
     const teamData = {
       name: name,
       league: league,
@@ -175,9 +171,33 @@ export const SportsTreeProvider = ({ children }) => {
 
       const res = await response.json();
 
-      console.log(res);
+      if (!res.data) return res;
 
-      return res;
+      getTeam(name);
+
+      return res.data;
+      
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const getTeam = async (name) => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/team/${name}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const res = await response.json();
+
+      if (!res) return;
+
+      setTeam(res.data);
+
+      return;
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -193,9 +213,11 @@ export const SportsTreeProvider = ({ children }) => {
         getLeagueTeam,
         leagues,
         league,
+        team,
         deleteTeam,
         addLeagueTeam,
         createTeam,
+        getTeam,
       }}
     >
       {children}
